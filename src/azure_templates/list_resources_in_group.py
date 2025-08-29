@@ -1,11 +1,17 @@
 # Script to list all resources in a Resource Group.
 
+import os
+
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.resource import ResourceManagementClient
+from dotenv import load_dotenv
 
-# Replace with your values
-subscription_id = "your-subscription-id"  # Azure Subscription ID
-resource_group_name = "myResourceGroup"  # RG to query
+# Load environment variables
+load_dotenv()
+
+# Get values from environment variables
+subscription_id = os.getenv("AZURE_SUBSCRIPTION_ID")
+resource_group_name = os.getenv("AZURE_RESOURCE_GROUP_NAME")
 
 # Authenticate
 credential = DefaultAzureCredential()

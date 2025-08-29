@@ -1,19 +1,25 @@
 # Script to create a basic Virtual Machine (VM) in Azure.
 # Requires an existing VNet and subnet. This creates a simple Linux VM.
 
+import os
+
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.compute import ComputeManagementClient
 from azure.mgmt.network import NetworkManagementClient
+from dotenv import load_dotenv
 
-# Replace with your values
-subscription_id = "your-subscription-id"  # Azure Subscription ID
-resource_group_name = "myResourceGroup"  # Existing RG name
-location = "eastus"  # Azure region
-vm_name = "myVM"  # VM name
-vnet_name = "myVNet"  # Existing VNet name
-subnet_name = "mySubnet"  # Subnet name (create if needed)
-admin_username = "azureuser"  # VM admin username
-admin_password = "P@ssw0rd123!"  # VM admin password (use SSH keys in production)
+# Load environment variables
+load_dotenv()
+
+# Get values from environment variables
+subscription_id = os.getenv("AZURE_SUBSCRIPTION_ID")
+resource_group_name = os.getenv("AZURE_RESOURCE_GROUP_NAME")
+location = os.getenv("AZURE_LOCATION")
+vm_name = os.getenv("AZURE_VM_NAME")
+vnet_name = os.getenv("AZURE_VNET_NAME")
+subnet_name = os.getenv("AZURE_SUBNET_NAME")
+admin_username = os.getenv("AZURE_ADMIN_USERNAME")
+admin_password = os.getenv("AZURE_ADMIN_PASSWORD")
 
 # Authenticate
 credential = DefaultAzureCredential()
@@ -44,7 +50,7 @@ try:
         vm_name,
         {
             "location": location,
-            "hardware_profile": {"vm_size": "Standard_DS1_v2"},  # VM size
+            "hardware_profile": {"vm_size": os.getenv("AZURE_VM_SIZE")},
             "storage_profile": {
                 "image_reference": {
                     "publisher": "Canonical",

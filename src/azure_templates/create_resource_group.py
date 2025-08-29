@@ -1,13 +1,19 @@
 # Script to create a new Azure Resource Group.
 # Use as a template for organizing resources.
 
+import os
+
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.resource import ResourceManagementClient
+from dotenv import load_dotenv
 
-# Replace with your values
-subscription_id = "your-subscription-id"  # Azure Subscription ID
-resource_group_name = "myResourceGroup"  # Desired RG name
-location = "eastus"  # Azure region (e.g., 'westus', 'eastus')
+# Load environment variables
+load_dotenv()
+
+# Get values from environment variables
+subscription_id = os.getenv("AZURE_SUBSCRIPTION_ID")
+resource_group_name = os.getenv("AZURE_RESOURCE_GROUP_NAME")
+location = os.getenv("AZURE_LOCATION")
 
 # Authenticate
 credential = DefaultAzureCredential()
