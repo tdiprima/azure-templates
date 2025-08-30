@@ -653,6 +653,20 @@ files = [
 ]
 
 [[package]]
+name = "dotenv"
+version = "0.9.9"
+description = "Deprecated package"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "dotenv-0.9.9-py2.py3-none-any.whl", hash = "sha256:29cf74a087b31dafdb5a446b6d7e11cbce8ed2741540e2339c69fbef92c94ce9"},
+]
+
+[package.dependencies]
+python-dotenv = "*"
+
+[[package]]
 name = "fixedint"
 version = "0.1.6"
 description = "simple fixed-width integers"
@@ -2082,4 +2096,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13"
-content-hash = "c3b533f0b082b142b3857ae92277b70d4d98d1c7e895a8d5e1b9b8809d3e4d16"
+content-hash = "866df7cf02b7917e9212a2d2aa45501bf032f2acb30339719a14886b3e2d0d11"
