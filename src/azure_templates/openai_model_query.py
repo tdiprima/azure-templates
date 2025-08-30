@@ -3,7 +3,11 @@
 
 import os
 
+from dotenv import load_dotenv
+from icecream import ic
 from openai import AzureOpenAI
+
+load_dotenv()
 
 # Variables (set these as environment variables)
 # Where to get them:
@@ -18,13 +22,18 @@ DEPLOYMENT_NAME = os.environ.get(
     "AZURE_OPENAI_DEPLOYMENT_NAME", "your-deployment-name"
 )  # e.g., gpt-4
 
+ic(ENDPOINT)
+ic(API_KEY)
+ic(DEPLOYMENT_NAME)
+
 
 def query_openai_model(prompt: str):
     # Initialize Azure OpenAI client
     client = AzureOpenAI(
         azure_endpoint=ENDPOINT,
         api_key=API_KEY,
-        api_version="2024-02-01",  # Check latest version in Azure docs
+        api_version="2024-10-01",
+        # api_version="2024-02-01",  # Check latest version in Azure docs
     )
 
     # Query the model (chat completion example)
