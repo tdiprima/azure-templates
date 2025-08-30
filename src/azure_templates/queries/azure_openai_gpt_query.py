@@ -7,7 +7,7 @@ endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
 api_key = os.getenv("AZURE_OPENAI_API_KEY")
 deployment_name = os.getenv(
     "DEPLOYMENT_NAME", "gpt-4.1"
-)  # Change to your deployment name, e.g., "gpt-4o"
+)
 
 # Validate required variables
 if not endpoint or not api_key:
@@ -28,7 +28,7 @@ query_messages = [
     {
         "role": "user",
         "content": "What is the capital of Japan?",
-    },  # Replace with your own query
+    },
 ]
 
 # Make the API call to query the model
