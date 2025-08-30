@@ -1,52 +1,30 @@
 import os
 
-from dotenv import load_dotenv
+import openai  # Required for Azure OpenAI client
 from icecream import ic
-from openai import AzureOpenAI
 
-load_dotenv()
+# Get Azure OpenAI credentials from environment variables
+azure_endpoint = "https://your-endpoint.openai.azure.com/"
+api_key = os.environ.get("AZURE_OPENAI_API_KEY")
 
-# Load environment variables (set these in your environment or use a .env file)
-endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
-api_key = os.getenv("AZURE_OPENAI_API_KEY")
-deployment_name = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-4")  # Change to your deployment name, e.g., "gpt-4o"
+ic(azure_endpoint)
+ic(api_key[:10] + "..." if api_key else None)  # Only show first 10 chars for security
 
-ic(endpoint)
-ic(api_key)
-ic(deployment_name)
-
-# Validate required variables
-if not endpoint or not api_key:
-    raise ValueError("Please set AZURE_OPENAI_ENDPOINT and AZURE_OPENAI_API_KEY environment variables.")
+if not api_key:
+    print("Error: AZURE_OPENAI_API_KEY environment variable is not set")
+    print("Please set it with: export AZURE_OPENAI_API_KEY=your_api_key")
+    exit(1)
 
 # Initialize the Azure OpenAI client
-client = AzureOpenAI(
-    azure_endpoint=endpoint,
+client = openai.AzureOpenAI(
+    azure_endpoint=azure_endpoint,
     api_key=api_key,
-    api_version="2024-10-01",
-    # api_version="2024-02-01"  # Use a recent API version; check Azure docs for the latest
+    api_version="2024-02-15-preview",  # Or your desired API version
 )
 
-# Sample query to send to GPT-4
-query_messages = [
-    {"role": "system", "content": "You are a helpful assistant."},
-    {"role": "user", "content": "What is the capital of Japan?"}  # Replace with your own query
-]
-
-# Make the API call to query the model
-response = client.chat.completions.create(
-    model=deployment_name,  # This is the deployment name in Azure
-    messages=query_messages,
-    max_tokens=100,  # Adjust as needed
-    temperature=0.7  # Adjust creativity level
+resp = client.chat.completions.create(
+    # Use the deployment name as shown in your project (or a serverless model name if you enabled it)
+    model="gpt-4.1",
+    messages=[{"role": "user", "content": "Say hello from Azure in one sentence."}],
 )
-
-# Print the response
-print("GPT Response:")
-print(response.choices[0].message.content.strip())
-
-# Optional: Print usage details
-print("\nUsage:")
-print(f"Prompt Tokens: {response.usage.prompt_tokens}")
-print(f"Completion Tokens: {response.usage.completion_tokens}")
-print(f"Total Tokens: {response.usage.total_tokens}")
+print(resp.choices[0].message.content)

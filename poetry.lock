@@ -83,6 +83,23 @@ tests = ["cloudpickle ; platform_python_implementation == \"CPython\"", "hypothe
 tests-mypy = ["mypy (>=1.11.1) ; platform_python_implementation == \"CPython\" and python_version >= \"3.10\"", "pytest-mypy-plugins ; platform_python_implementation == \"CPython\" and python_version >= \"3.10\""]
 
 [[package]]
+name = "azure-ai-agents"
+version = "1.1.0"
+description = "Microsoft Corporation Azure AI Agents Client Library for Python"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "azure_ai_agents-1.1.0-py3-none-any.whl", hash = "sha256:f660bb0d564aeb88e33140ebc1e4700d2e36e2e12ee60c3346915d702a9310a9"},
+    {file = "azure_ai_agents-1.1.0.tar.gz", hash = "sha256:eb9d7226282d03206c3fab3f3ee0a2fc71e0ad38e52d2f4f19a92c56ed951aea"},
+]
+
+[package.dependencies]
+azure-core = ">=1.30.0"
+isodate = ">=0.6.1"
+typing-extensions = ">=4.6.0"
+
+[[package]]
 name = "azure-ai-ml"
 version = "1.28.1"
 description = "Microsoft Azure Machine Learning Client Library for Python"
@@ -118,6 +135,25 @@ typing-extensions = "<5.0.0"
 [package.extras]
 designer = ["mldesigner"]
 mount = ["azureml-dataprep-rslex (>=2.22.0) ; python_version < \"3.13\""]
+
+[[package]]
+name = "azure-ai-projects"
+version = "1.0.0"
+description = "Microsoft Azure AI Projects Client Library for Python"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "azure_ai_projects-1.0.0-py3-none-any.whl", hash = "sha256:81369ed7a2f84a65864f57d3fa153e16c30f411a1504d334e184fb070165a3fa"},
+    {file = "azure_ai_projects-1.0.0.tar.gz", hash = "sha256:b5f03024ccf0fd543fbe0f5abcc74e45b15eccc1c71ab87fc71c63061d9fd63c"},
+]
+
+[package.dependencies]
+azure-ai-agents = ">=1.0.0"
+azure-core = ">=1.30.0"
+azure-storage-blob = ">=12.15.0"
+isodate = ">=0.6.1"
+typing-extensions = ">=4.12.2"
 
 [[package]]
 name = "azure-common"
@@ -2160,4 +2196,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13"
-content-hash = "e15f1a5437e5f9a8a60e438af5facf4f7bafc7ec7262d2c8719f3cfc7eec92a1"
+content-hash = "3b5c2e3e7d2fe0c41b76b41e0646b50bb2f155ee6a63f3833e43cdf69930cdde"
