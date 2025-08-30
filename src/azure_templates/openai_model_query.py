@@ -23,7 +23,7 @@ DEPLOYMENT_NAME = os.environ.get(
 )  # e.g., gpt-4
 
 ic(ENDPOINT)
-ic(API_KEY)
+ic(API_KEY[:10] + "..." if api_key else None)
 ic(DEPLOYMENT_NAME)
 
 

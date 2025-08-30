@@ -4,7 +4,7 @@ import openai  # Required for Azure OpenAI client
 from icecream import ic
 
 # Get Azure OpenAI credentials from environment variables
-azure_endpoint = "https://your-endpoint.openai.azure.com/"
+azure_endpoint = os.environ.get("AZURE_OPENAI_ENDPOINT")
 api_key = os.environ.get("AZURE_OPENAI_API_KEY")
 
 ic(azure_endpoint)
