@@ -8,7 +8,7 @@ client = AzureOpenAI(
 )
 
 resp = client.chat.completions.create(
-    model=os.environ["AZURE_OPENAI_DEPLOYMENT"],  # deployment name, not the base model name
+    model=os.environ.get("AZURE_OPENAI_DEPLOYMENT", "gpt-4.1"), 
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "Say hello from Azure in one sentence."}
