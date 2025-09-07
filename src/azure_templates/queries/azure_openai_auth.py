@@ -1,10 +1,10 @@
 import os
-from openai import AzureOpenAI
+
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
+from openai import AzureOpenAI
 
 token_provider = get_bearer_token_provider(
-    DefaultAzureCredential(),
-    "https://cognitiveservices.azure.com/.default"
+    DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
 )
 
 client = AzureOpenAI(
@@ -15,6 +15,6 @@ client = AzureOpenAI(
 
 resp = client.chat.completions.create(
     model=os.environ["AZURE_OPENAI_DEPLOYMENT"],
-    messages=[{"role": "user", "content": "Hello! Who are you?"}]
+    messages=[{"role": "user", "content": "Hello! Who are you?"}],
 )
 print(resp.choices[0].message.content)

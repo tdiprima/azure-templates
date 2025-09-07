@@ -5,9 +5,7 @@ from openai import AzureOpenAI
 # Load environment variables (set these in your environment or use a .env file)
 endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
 api_key = os.getenv("AZURE_OPENAI_API_KEY")
-deployment_name = os.getenv(
-    "DEPLOYMENT_NAME", "gpt-4.1"
-)
+deployment_name = os.getenv("DEPLOYMENT_NAME", "gpt-4.1")
 
 # Validate required variables
 if not endpoint or not api_key:
