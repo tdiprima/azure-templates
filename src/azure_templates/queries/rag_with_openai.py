@@ -20,7 +20,7 @@ OPENAI_ENDPOINT = os.environ.get(
 )
 OPENAI_API_KEY = os.environ.get("AZURE_OPENAI_API_KEY", "your-api-key")
 OPENAI_DEPLOYMENT = os.environ.get(
-    "AZURE_OPENAI_DEPLOYMENT_NAME", "your-gpt-deployment"
+    "AZURE_OPENAI_DEPLOYMENT", "your-gpt-deployment"
 )
 EMBEDDING_DEPLOYMENT = os.environ.get(
     "AZURE_OPENAI_EMBEDDING_DEPLOYMENT", "your-embedding-deployment"

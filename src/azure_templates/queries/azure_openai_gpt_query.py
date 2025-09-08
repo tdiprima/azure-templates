@@ -1,23 +1,15 @@
 import os
 
+from dotenv import load_dotenv
 from openai import AzureOpenAI
 
-# Load environment variables (set these in your environment or use a .env file)
-endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
-api_key = os.getenv("AZURE_OPENAI_API_KEY")
-deployment_name = os.getenv("DEPLOYMENT_NAME", "gpt-4.1")
-
-# Validate required variables
-if not endpoint or not api_key:
-    raise ValueError(
-        "Please set AZURE_OPENAI_ENDPOINT and AZURE_OPENAI_API_KEY environment variables."
-    )
+load_dotenv()
 
 # Initialize the Azure OpenAI client
 client = AzureOpenAI(
-    azure_endpoint=endpoint,
-    api_key=api_key,
-    api_version="2024-02-01",  # Use a recent API version; check Azure docs for the latest
+    azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+    api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+    api_version="2024-02-01",  # Check Azure docs for the latest
 )
 
 # Sample query to send to GPT-4
@@ -31,7 +23,7 @@ query_messages = [
 
 # Make the API call to query the model
 response = client.chat.completions.create(
-    model=deployment_name,  # This is the deployment name in Azure
+    model=os.getenv("AZURE_OPENAI_DEPLOYMENT"),
     messages=query_messages,
     max_tokens=100,  # Adjust as needed
     temperature=0.7,  # Adjust creativity level
