@@ -5,15 +5,18 @@ import os
 
 from azure.ai.ml import MLClient
 from azure.identity import DefaultAzureCredential
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Variables (set these as environment variables or retrieve from Azure Key Vault)
 # Where to get them:
 # - SUBSCRIPTION_ID: Azure Portal > Subscriptions > Your subscription > Overview.
 # - RESOURCE_GROUP: Azure Portal > Resource groups > Your group > Overview.
 # - WORKSPACE_NAME: Azure Portal > Machine Learning > Your workspace > Overview.
-SUBSCRIPTION_ID = os.environ.get("AZURE_SUBSCRIPTION_ID", "your-subscription-id")
-RESOURCE_GROUP = os.environ.get("AZURE_RESOURCE_GROUP", "your-resource-group")
-WORKSPACE_NAME = os.environ.get("AZURE_ML_WORKSPACE_NAME", "your-workspace-name")
+SUBSCRIPTION_ID = os.getenv("AZURE_SUBSCRIPTION_ID", "your-subscription-id")
+RESOURCE_GROUP = os.getenv("AZURE_RESOURCE_GROUP", "your-resource-group")
+WORKSPACE_NAME = os.getenv("AZURE_ML_WORKSPACE_NAME", "your-workspace-name")
 
 
 def connect_to_ml_workspace():
