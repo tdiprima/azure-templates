@@ -6,7 +6,11 @@ import os
 from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
 from azure.search.documents.models import VectorizedQuery
+from dotenv import load_dotenv
+from icecream import ic
 from openai import AzureOpenAI
+
+load_dotenv()
 
 # Variables (set these as environment variables)
 # Where to get them:
@@ -15,19 +19,21 @@ from openai import AzureOpenAI
 # - SEARCH_API_KEY: Azure Portal > Search services > Your service > Keys > Primary admin key.
 # - SEARCH_INDEX_NAME: Azure Portal > Search services > Your service > Indexes > Your index name (create one with vector fields if needed).
 # - EMBEDDING_DEPLOYMENT: Azure AI Studio > Deployments > Your embedding model deployment (e.g., "text-embedding-ada-002").
-OPENAI_ENDPOINT = os.environ.get(
-    "AZURE_OPENAI_ENDPOINT", "https://your-endpoint.openai.azure.com/"
-)
-OPENAI_API_KEY = os.environ.get("AZURE_OPENAI_API_KEY", "your-api-key")
-OPENAI_DEPLOYMENT = os.environ.get("AZURE_OPENAI_DEPLOYMENT", "your-gpt-deployment")
-EMBEDDING_DEPLOYMENT = os.environ.get(
-    "AZURE_OPENAI_EMBEDDING_DEPLOYMENT", "your-embedding-deployment"
-)
-SEARCH_ENDPOINT = os.environ.get(
-    "AZURE_SEARCH_ENDPOINT", "https://your-search-service.search.windows.net"
-)
-SEARCH_API_KEY = os.environ.get("AZURE_SEARCH_API_KEY", "your-search-key")
-SEARCH_INDEX_NAME = os.environ.get("AZURE_SEARCH_INDEX_NAME", "your-index-name")
+OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT", "https://your-endpoint.openai.azure.com/")
+OPENAI_API_KEY = os.getenv("AZURE_OPENAI_API_KEY", "your-api-key")
+OPENAI_DEPLOYMENT = os.getenv("AZURE_OPENAI_DEPLOYMENT", "your-gpt-deployment")
+EMBEDDING_DEPLOYMENT = os.getenv("AZURE_OPENAI_EMBEDDING_DEPLOYMENT", "your-embedding-deployment")
+SEARCH_ENDPOINT = os.getenv("AZURE_SEARCH_ENDPOINT", "https://your-search-service.search.windows.net")
+SEARCH_API_KEY = os.getenv("AZURE_SEARCH_API_KEY", "your-search-key")
+SEARCH_INDEX_NAME = os.getenv("AZURE_SEARCH_INDEX_NAME", "your-index-name")
+
+ic(OPENAI_ENDPOINT)
+ic(OPENAI_API_KEY[:10] + "..." if OPENAI_API_KEY else None)
+ic(OPENAI_DEPLOYMENT)
+ic(EMBEDDING_DEPLOYMENT)
+ic(SEARCH_ENDPOINT)
+ic(SEARCH_API_KEY[:10] + "..." if SEARCH_API_KEY else None)
+ic(SEARCH_INDEX_NAME)
 
 
 def generate_embeddings(text: str, client: AzureOpenAI):
@@ -39,7 +45,9 @@ def generate_embeddings(text: str, client: AzureOpenAI):
 def perform_rag_query(user_query: str):
     # Initialize clients
     openai_client = AzureOpenAI(
-        azure_endpoint=OPENAI_ENDPOINT, api_key=OPENAI_API_KEY, api_version="2024-02-01"
+        azure_endpoint=OPENAI_ENDPOINT, 
+        api_key=OPENAI_API_KEY, 
+        api_version="2024-02-01"
     )
 
     search_client = SearchClient(
@@ -65,9 +73,7 @@ def perform_rag_query(user_query: str):
     context = "\n".join([result["content"] for result in search_results])
 
     # Step 3: Augment and query the model with RAG
-    prompt = (
-        f"Context: {context}\n\nQuestion: {user_query}\nAnswer based on the context:"
-    )
+    prompt = (f"Context: {context}\n\nQuestion: {user_query}\nAnswer based on the context:")
     response = openai_client.chat.completions.create(
         model=OPENAI_DEPLOYMENT,
         messages=[{"role": "user", "content": prompt}],
@@ -82,7 +88,6 @@ def perform_rag_query(user_query: str):
 
 
 if __name__ == "__main__":
-    query = (
-        "What is the capital of Japan?"  # Assume your search index has relevant data
-    )
+    # Assume your search index has relevant data
+    query = ("What is the capital of Japan?")
     perform_rag_query(query)
