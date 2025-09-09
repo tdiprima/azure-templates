@@ -6,17 +6,19 @@ using API key authentication with environment variables for configuration.
 """
 
 import os
-
+from dotenv import load_dotenv
 from openai import AzureOpenAI
 
+load_dotenv()
+
 client = AzureOpenAI(
-    api_key=os.environ["AZURE_OPENAI_API_KEY"],
-    azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
+    api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+    azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
     api_version="2024-02-15-preview",  # use the latest your resource supports
 )
 
 resp = client.chat.completions.create(
-    model=os.environ.get("AZURE_OPENAI_DEPLOYMENT", "gpt-4.1"),
+    model=os.getenv("AZURE_OPENAI_DEPLOYMENT"),
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "Say hello from Azure in one sentence."},
