@@ -1,3 +1,11 @@
+"""
+Azure OpenAI GPT query example using API key authentication.
+
+This script demonstrates how to interact with Azure OpenAI's GPT models
+using API key authentication. It includes examples of configuring parameters
+like temperature and max_tokens, and displays usage statistics.
+"""
+
 import os
 
 from dotenv import load_dotenv

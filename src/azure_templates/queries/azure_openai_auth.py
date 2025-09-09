@@ -1,3 +1,11 @@
+"""
+Azure OpenAI authentication example using DefaultAzureCredential.
+
+This script demonstrates how to authenticate with Azure OpenAI using Azure AD
+(Entra ID) authentication instead of API keys. It uses DefaultAzureCredential
+to automatically handle authentication with various Azure identity providers.
+"""
+
 import os
 
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider

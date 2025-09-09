@@ -1,3 +1,10 @@
+"""
+Simple Azure OpenAI GPT query example.
+
+This script provides a minimal example of querying an Azure OpenAI GPT model
+using API key authentication with environment variables for configuration.
+"""
+
 import os
 
 from openai import AzureOpenAI
