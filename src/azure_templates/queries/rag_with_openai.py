@@ -27,12 +27,16 @@ SEARCH_ENDPOINT = os.getenv("AZURE_SEARCH_ENDPOINT", "https://your-search-servic
 SEARCH_API_KEY = os.getenv("AZURE_SEARCH_API_KEY", "your-search-key")
 SEARCH_INDEX_NAME = os.getenv("AZURE_SEARCH_INDEX_NAME", "your-index-name")
 
+masked_openai_api_key = f"{OPENAI_API_KEY[:10]}..." if OPENAI_API_KEY else None
+masked_search_api_key = f"{SEARCH_API_KEY[:10]}..." if SEARCH_API_KEY else None
+
 ic(OPENAI_ENDPOINT)
-ic(OPENAI_API_KEY[:10] + "..." if OPENAI_API_KEY else None)
+ic(masked_openai_api_key)
+# ic(OPENAI_API_KEY and f"{OPENAI_API_KEY[:10]}...")
 ic(OPENAI_DEPLOYMENT)
 ic(EMBEDDING_DEPLOYMENT)
 ic(SEARCH_ENDPOINT)
-ic(SEARCH_API_KEY[:10] + "..." if SEARCH_API_KEY else None)
+ic(masked_search_api_key)
 ic(SEARCH_INDEX_NAME)
 
 
